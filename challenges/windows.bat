@@ -18,10 +18,10 @@ echo    Create a makefile which has a library as a dependency, also create rules
 echo          Kinda bonus?(you are not allowed to compile or clean in the library subfolder directly)
 echo.
 call :color 0d "Level3"
-echo 	Create a makefile which uses *.o files to compile
+echo 	Create a makefile which compiles every file alone and links the afterwards
 echo.
 call :color 0c "Level4"
-echo 	Create a makefile that will do everything from the other levels and also recompiles sources of you change the content of a header
+echo 	Create a makefile that will do everything from the other levels and also recompiles sources, when you change the content of a header
 echo.
 rem call :color 1c "^!<>&| %%%%"*?"
 exit /b
