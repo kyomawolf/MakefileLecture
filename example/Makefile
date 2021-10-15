@@ -1,4 +1,5 @@
-
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
 #OS detection
 ifeq ($(OS),Windows_NT)
 	NAME := .\programmname.exe
@@ -61,4 +62,6 @@ help :
 	@echo "	test"
 	@echo "	clean"
 
-include $(DEP)
+-include $(DEP)
+
+.PHONY: all execute help re clean
