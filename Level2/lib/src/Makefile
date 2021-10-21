@@ -2,23 +2,25 @@
 
 ifdef OS
 	CP = copy
-	NAME= .\libuseful.a
-	HEADER = \usefullib.h
-	APATH = ..\..\inc
+	NAME=libuseful.a
+	HEADER =usefullib.h
+	INCPATH = ..\..\inc\$(HEADER)
+	LIBPATH = ..\$(NAME) 
 	RM = erase 
 else
 	CP = cp
-	NAME= .\libuseful.a
-	HEADER = /usefullib.h
-	APATH = ../../inc
+	NAME=libuseful.a
+	HEADER =usefullib.h
+	INCPATH = ../../inc/$(HEADER)
+	LIBPATH = ../$(NAME) 
 endif
 
 
 all :
 	gcc -c usefulfunc.c 
 	ar -crs $(NAME) usefulfunc.o
-	$(CP) $(NAME) .$(NAME)
-	$(CP) .$(HEADER) $(APATH)$(HEADER)
+	$(CP) $(NAME) $(LIBPATH)
+	$(CP) $(HEADER) $(INCPATH)
 
 
 re : clean all
