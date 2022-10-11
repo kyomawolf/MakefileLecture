@@ -4,14 +4,14 @@ a step-by-step guide for Makefiles
 --- 
 
 ### What the hell is a Makefile?
-The Makefile is a tool to help you compile bigger and complicated project. 
-With just one `make` and an underlying script you have written you can lazily compile
+The Makefile is a tool to help you compile bigger and complicated projects. 
+With just one `make` and an underlying script you have written you can compile
 your code.
 
 The Makefile is Mandatory in (almost) every core-project of the 42 curriculum.
-So knowing your way around it will help you a lot. This guide is not complete. It covers the basics of how I use the tool.
-If you want to learn more about it, [here is the documentation](https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents).
-There may be mistakes, so if you spot one, feel free to create a pull request/issue and provide a solution.
+So knowing your way around it will help you a lot. This guide is not complete. It covers the basics of how I use the tool,
+if you want to learn more about it, [here is the official documentation](https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents).
+There may be mistakes, so if you spot one, feel free to create a pull request/issue and provide a solution and of course I'm open to additions and new sections.
 ___
 ### Da rulez
 All your commands and scripts will be executed by calling a Makefile rule, if the rulename is not specified it will run
@@ -49,7 +49,9 @@ SRC   := different.c     #holds { different.c }
 NAME  ?= isempty         #holds { isempty } but only if it was nothing in there to begin with
 SECOND = $(SRC) file.c   #holds { $(SRC) file.c } this variable is dynamic, if you change SRC, SECOND will change as well
 ```
+[More about rules.](https://www.gnu.org/software/make/manual/html_node/Rules.html#Rules)
 
+[More about variables.](https://www.gnu.org/software/make/manual/html_node/Using-Variables.html#Using-Variables)
 ### Compiling and linking
 
 When converting code to a program you call the compiler (on campus we use `clang`) which checks the logic for compile-time errors
@@ -80,7 +82,8 @@ $(DIR):
     mkdir $(DIR)
 ```
 The script will look if the directory exists. it then tries to find a rule for it (if its not there it will throw an error).
-it executes the prerequisite rule first and the proceeds to its own execution. 
+it executes the prerequisite rule first and the proceeds to its own execution. If you have a file named like a rule, but it
+has nothing to do with the file you can list it as under `.PHONY: all rule names`.
 
 Now, we could use that for our source files, right?:
 ```makefile
@@ -109,7 +112,7 @@ so what happens there?
 the `%` in `%.c`/`%.o` is a pattern variable, so for every word that ends with .o should call this rule.
 in this case it expands it to:
 `main.o: main.c` `second.o: second.c` `file.o: file.c`
-now there is also `$<` and `$@`. these variables are dynamic:
+now there is also `$<` and `$@`. these variables are called [automatic variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables):
 ```makefile
 $@      #target (rulename)
 $(@D)   #target's directory
@@ -169,8 +172,11 @@ all: $(OBJ)
 clean:
     rm -f $(NAME)
     rm -f $(OBJ)
+.PHONY: all clean
 ```
+---
+### nice to know
 
-
-
-
+- putting an `@` in front of the command tells make to not print it to the terminal
+- putting an `-` in front of the command tells make to ignore errors omitted from that line
+- you can multithread your compilation by adding `--jobs={number}` (something like a 9) as a parameter, speeds things up by a lot!
