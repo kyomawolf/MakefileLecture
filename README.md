@@ -163,7 +163,9 @@ CC      = clang
 CFLAGS  = -Wall -Wextra -Werror
 LDFLAGS = -L lib -l ft
 
-all: $(OBJ)
+all: $(NAME)
+
+$(NAME): $(OBJ)
     $(CC) $(OBJ) $(LDFLAGS) -o $(NAME)
 
 %.o: %.c
