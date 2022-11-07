@@ -182,3 +182,4 @@ clean:
 - putting an `@` in front of the command tells make to not print it to the terminal
 - putting an `-` in front of the command tells make to ignore errors omitted from that line
 - you can multithread your compilation by adding `--jobs={number}` (something like a 9) as a parameter, speeds things up by a lot!
+- if you use subdirectories for your sourcefiles you can use the `VPATH` variable. just set every foldername that contains sourcefiles in the variable and make will automatically search these directories for sourcefiles.
